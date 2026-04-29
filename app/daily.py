@@ -1,16 +1,17 @@
-try:
-    number = int(input("Pick your number: "))
-except ValueError as e:
-    print(f"Invalid number: {e}")
-else:
-    if number < 0:
-        print("Negative number")
-    elif number == 0:
-        print("Zero")
-    else:
-        if number % 2 == 0:
-            print("Even")
-        else:
-            print("Odd")
+
+
+sentence = input("Give me your words: ")
+lower_words = sentence.lower()
+words = lower_words.split()
+count = {}
+
+for w in words:
+    count[w] = count.get(w, 0) + 1
+    
+for key, value in count.items():
+    print(f"{key}: {value}")
+
+    
+    
 
 
