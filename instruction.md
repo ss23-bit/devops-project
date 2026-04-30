@@ -1,0 +1,32 @@
+**Bash**
+*uvicorn app.main:app --reload*
+`--reload` Automatically restarts the server when code change
+
+*curl flags: -H and -d*
+`-H` → Header, Metadata sent with the request.
+`-d` → Data (request body), Sends data to the server (usually for POST/PUT)
+
+**Docker**
+`docker image prune`: Remove dangling images only (safe)
+
+*PYTHONDONTWRITEBYTECODE=1*
+1. Cleaner container: No unnecessary cache files created at runtime
+2. Less disk I/O. Important in:
+- containers
+- serverless
+- ephemeral systems
+3. Predictable behavior: No hidden files being created
+
+*PYTHONUNBUFFERED=1*
+Forces logs to flush immediately
+With it → real-time logs
+- Docker logs
+- Kubernetes logs
+- Monitoring systems
+
+**Python**
+`app.include_router(router)`: attaching routes from routes.py into the main app
+`.isoformat()`: Type = string, Use it when:
+- writing logs
+- sending data outside FastAPI
+- storing in files

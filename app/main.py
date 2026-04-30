@@ -1,7 +1,12 @@
 from fastapi import FastAPI
+from routes import router
 
-app = FastAPI()
+app = FastAPI(title="DevOps Project API") 
 
-@app.get('/')
+app.include_router(router) 
+
+@app.get("/")
 def root():
-    return {"messege": "Uptime Monitor running"}
+    return {"message": "API is running"}
+
+
