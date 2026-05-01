@@ -24,7 +24,7 @@ jobs:
     # Login to ECR
     - name: Login to ECR
       run: |
-        aws ecr get-login-password --region $AWS_REGION \
+        aws ecr get-login-password --region ${{ secrets.AWS_REGION }} \
         | docker login --username AWS --password-stdin \
         ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
@@ -56,18 +56,18 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no -i key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
 
-        aws ecr get-login-password --region ap-southeast-1 \
+        aws ecr get-login-password --region ${{ secrets.AWS_REGION }} \
         | docker login --username AWS --password-stdin \
-        YOUR_ACCOUNT_ID.dkr.ecr.ap-southeast-1.amazonaws.com
+        ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
         docker stop devops-api || true
         docker rm devops-api || true
 
-        docker pull YOUR_ACCOUNT_ID.dkr.ecr.ap-southeast-1.amazonaws.com/devops-api:latest
+        docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/devops-api:latest
 
         docker run -d -p 8000:8000 \
           --name devops-api \
           --restart always \
-          YOUR_ACCOUNT_ID.dkr.ecr.ap-southeast-1.amazonaws.com/devops-api:latest
+          ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/devops-api:latest
 
         EOF
