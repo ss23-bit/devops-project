@@ -16,7 +16,7 @@ resource "aws_instance" "devops_server" {
   user_data = <<-EOF
               #!/bin/bash
               apt update -y
-              apt install docker.io -y
+              apt install -y docker.io awscli
               systemctl start docker
               systemctl enable docker
               usermod -aG docker ubuntu
