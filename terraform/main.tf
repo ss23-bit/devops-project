@@ -14,13 +14,29 @@ resource "aws_instance" "devops_server" {
   }
 
   user_data = <<-EOF
-              #!/bin/bash
-              apt update -y
-              apt install -y docker.io awscli
-              systemctl start docker
-              systemctl enable docker
-              usermod -aG docker ubuntu
-              EOF
+                #!/bin/bash
+                # Exit immediately if any command fails
+                set -e
+                
+                apt update -y
+                
+                apt install -y docker.io
+                
+                systemctl start docker
+                systemctl enable docker
+                
+                # Install AWS CLI v2
+                apt install -y unzip curl
+                
+                curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                unzip awscliv2.zip
+                # it installs to /usr/local/bin, Without sudo, it can fail silently depending on environment
+                sudo ./aws/install
+                
+                # Add ubuntu to docker group
+                usermod -aG docker ubuntu
+                
+                EOF
 }
 
 resource "aws_security_group" "devops_sg" {
