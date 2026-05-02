@@ -1,29 +1,24 @@
-import string
+def analyze_logs(logs):
 
-sentence = input("Say some thing: ").lower()
+    count = {}
 
-sentence = sentence.translate(str.maketrans("", "", string.punctuation))
+    for log in logs:
+        level = log.split()[0]
 
-count = {}
-words = sentence.split()
-if not words:
-    print("No valid words found")
-
-for w in words:
-    count[w] = count.get(w, 0) + 1
-
-max_word = None
-max_count = 0
-
-for word, freq in count.items():
-    if freq > max_count:
-        max_word = word
-        max_count = freq
-
-print(f"{max_word}: {max_count}")
+        count[level] = count.get(level, 0) + 1
 
 
-    
-    
+    return count
 
+logs = [
+    "ERROR Disk full",
+    "INFO User login",
+    "ERROR Disk full",
+    "WARNING CPU high",
+    "INFO User login"
+]
 
+most_freq = analyze_logs(logs)
+
+most_freq_level = max(most_freq, key=most_freq.get)
+print(f"Most frequent: {most_freq_level} ({most_freq[most_freq_level]})")    

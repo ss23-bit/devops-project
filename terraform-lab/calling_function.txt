@@ -1,0 +1,96 @@
+🧠 1. Basic function call (most common)
+def greet():
+    print("Hello")
+
+greet()
+
+👉 Just write the function name + ()
+
+---
+
+🧠 2. Function with arguments
+def greet(name):
+    print("Hello", name)
+
+greet("Alice")
+
+👉 You pass values into the function
+
+---
+
+🧠 3. Function with return value
+def add(a, b):
+    return a + b
+
+result = add(2, 3)
+print(result)
+
+👉 You store or use the returned value
+
+---
+
+🧠 4. Keyword arguments
+def greet(name, age):
+    print(name, age)
+
+greet(age=20, name="Alice")
+
+👉 Order doesn’t matter
+
+---
+
+🧠 5. Default arguments
+def greet(name="Guest"):
+    print(name)
+
+greet()
+greet("Bob")
+
+---
+
+🧠 6. Variable arguments (*args)
+def add(*numbers):
+    print(sum(numbers))
+
+add(1, 2, 3)
+
+👉 You can pass unlimited values
+
+---
+
+🧠 7. Keyword variable arguments (**kwargs)
+def info(**data):
+    print(data)
+
+info(name="Alice", age=20)
+
+👉 Works like a dictionary
+
+---
+
+🧠 8. Calling a function stored in a variable
+def greet():
+    print("Hi")
+
+f = greet
+f()
+
+👉 Function as a value
+
+---
+
+🧠 9. Calling functions inside other functions
+def a():
+    print("A")
+
+def b():
+    a()
+    print("B")
+
+b()
+
+---
+
+🧠 10. Lambda function call (quick function)
+add = lambda x, y: x + y
+print(add(2, 3))
