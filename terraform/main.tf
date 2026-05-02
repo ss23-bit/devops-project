@@ -28,14 +28,18 @@ resource "aws_instance" "devops_server" {
                 # Install AWS CLI v2
                 apt install -y unzip curl
                 
+                # keeps home directory clean, safe for temporary installs
+                cd /tmp
+                
                 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
                 unzip awscliv2.zip
-                # it installs to /usr/local/bin, Without sudo, it can fail silently depending on environment
-                sudo ./aws/install
+                ./aws/install
                 
                 # Add ubuntu to docker group
                 usermod -aG docker ubuntu
                 
+                rm -rf /tmp/aws /tmp/awscliv2.zip
+
                 EOF
 }
 

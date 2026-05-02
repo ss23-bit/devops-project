@@ -1,3 +1,4 @@
+import logging
 from fastapi import APIRouter
 from datetime import datetime, timezone
 
@@ -7,6 +8,7 @@ items_db = []
 
 @router.get("/health")
 def health_check():
+    logging.info("Health check called")
     return {
         "status": "ok",
         "timestamp": datetime.now(timezone.utc).isoformat()
