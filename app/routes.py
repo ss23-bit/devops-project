@@ -2,13 +2,16 @@ import logging
 from fastapi import APIRouter
 from datetime import datetime, timezone
 
+# It will show logger's name(here is routes). Good for Scalability, Traceability
+logger = logging.getLogger(__name__)
+
 router = APIRouter()
 
 items_db = []
 
 @router.get("/health")
 def health_check():
-    logging.info("Health check called")
+    logger.info("Health check called")
     return {
         "status": "ok",
         "timestamp": datetime.now(timezone.utc).isoformat()

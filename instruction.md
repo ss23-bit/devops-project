@@ -30,3 +30,9 @@ With it → real-time logs
 - writing logs
 - sending data outside FastAPI
 - storing in files
+
+**Monitoring**
+`docker logs -f devops-api` Live logs
+`--restart always` Restart automatically
+`docker stats` CPU %, Memory usage, Network I/O
+`watch -n 5 curl http://YOUR_PUBLIC_IP:8000/health` Create a script locally: Every 5 seconds = check uptime
