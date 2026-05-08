@@ -13,7 +13,7 @@ data "aws_ami" "amazon_linux" {
 }
 
 resource "aws_instance" "devops_server" {
-  ami           = data.aws_ami.amazon_linux
+  ami           = data.aws_ami.amazon_linux.id
   instance_type = "t3.micro"
   key_name      = var.key_name
 
