@@ -13,5 +13,9 @@ variable "allowed_cidr_blocks" {
 variable "ecr_uri" {
   description = "ECR image URI"
   type        = string
+}
 
+variable "ecr_registry" {
+  description = "ECR registry"
+  type        = string
 }

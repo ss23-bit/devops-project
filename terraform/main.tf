@@ -42,12 +42,13 @@ resource "aws_instance" "devops_server" {
                 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
                 unzip awscliv2.zip
                 ./aws/install
+                
+                REGISTRY=${var.ecr_registry}
+                IMAGE=${var.ecr_uri}:latest
 
                 # "--password-stdin" avoids exposing password
                 aws ecr get-login-password --region ap-southeast-1 \
-                | docker login --username AWS --password-stdin $${ecr_uri%/*}
-
-                IMAGE=${ecr.uri}:latest
+                | docker login --username AWS --password-stdin REGISTRY
                 
                 docker pull IMAGE
 
