@@ -13,6 +13,6 @@ variable "ecr_uri" {
 
 variable "ecr_registry" {
   description = "ECR registry"
-  type        = string
+  type        = string 
 
 }

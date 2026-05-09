@@ -64,13 +64,20 @@ jobs:
       run: |
         echo "ip=$(terraform -chdir=terraform output -raw public_ip)" >> $GITHUB_OUTPUT
 
-    - name: Wait for app
-      run: sleep 60
-    
-      # Test endpoint  
-    - name: Test API
+    - name: Wait for API health check
       run: |
-        curl http://${{ steps.ip.outputs.ip }}:8000/health
+        for i in {1..30}; do
+          if curl -f http://${{ steps.ip.outputs.ip }}:8000/health; then
+            echo "API is healthy"
+            exit 0
+          fi
+
+          echo "Waiting for API..."
+          sleep 10
+        done
+
+        echo "API failed health check"
+        exit 1
     
       # Destroy infra
     - name: Terraform Destroy
@@ -79,7 +86,7 @@ jobs:
       run: |
         terraform -chdir=terraform destroy -auto-approve \
           -var="key_name=${{ secrets.KEY_NAME }}" \
-          -var="ecr_uri=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-southeast-1.amazonaws.com/devops-api" \
+          -var="ecr_uri=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-southeast-1.amazonaws.com/devops-api" 
           
 
       
