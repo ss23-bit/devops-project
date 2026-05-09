@@ -51,3 +51,11 @@ Terraform still:
 
 So if your config contains: `key_name = var.key_name`
 Terraform still needs: `var.key_name`
+
+**Debugging**
+`exec > /var/log/user-data.log 2>&1`
+ - `exec`: Changes shell process IO behavior globally.
+ - `> /var/log/user-data.log`
+   - Redirects: STDOUT (normal output)
+   - into file: /var/log/user-data.log
+ - `2>&1`: Redirect STDERR to same place as STDOUT

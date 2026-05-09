@@ -26,6 +26,11 @@ resource "aws_instance" "devops_server" {
                 # Exit immediately if any command fails
                 set -e
                 
+                # debugging automate
+                exec > /var/log/user-data.log 2>&1
+                # print commands before executing them. pair with debugging
+                set -x
+                
                 apt update -y
                 
                 apt install -y docker.io
@@ -72,7 +77,7 @@ resource "aws_security_group" "devops_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = var.allowed_cidr_blocks
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   # App
@@ -80,7 +85,7 @@ resource "aws_security_group" "devops_sg" {
     from_port   = 8000
     to_port     = 8000
     protocol    = "tcp"
-    cidr_blocks = var.allowed_cidr_blocks
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   # Prometheus
@@ -88,7 +93,7 @@ resource "aws_security_group" "devops_sg" {
     from_port   = 9090
     to_port     = 9090
     protocol    = "tcp"
-    cidr_blocks = var.allowed_cidr_blocks
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
