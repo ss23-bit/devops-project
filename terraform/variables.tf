@@ -7,7 +7,7 @@ variable "allowed_cidr_blocks" {
   description = "CIDR blocks allowed to access the server"
   type        = list(string)
 
-  default = ["58.8.249.70/32"]
+  default = ["58.8.249.145/32"]
 }
 
 variable "ecr_uri" {
